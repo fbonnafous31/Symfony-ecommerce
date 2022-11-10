@@ -1,12 +1,13 @@
 {% extends "base.html.twig" %}
 
 {% block title %}
-	Création d'un produit
+	Edition de
+	{{ product.name }}
 {% endblock %}
 
 {% block body %}
-	<h1>Nouveau produit</h1>
-
+	<h1>Editer le produit
+		{{ product.name }}</h1>
 	{{ form_start(formView) }}
 
 	{{ form_errors(formView) }}
@@ -31,4 +32,5 @@
 	</button>
 
 	{{ form_end(formView) }}
+
 {% endblock %}
