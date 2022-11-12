@@ -22,7 +22,9 @@ class ProductType extends AbstractType
                 'label' => 'Nom du produit',
                 'attr' => [
                     'placeholder' => 'Tapez le nom du produit'
-                ]
+                ],
+                // 'required' => false,
+                // 'constraints' => new NotBlank((['message' => "Validation du formulaire : le nom du produit ne peut pas être vide"]))
             ])
             ->add('shortDescription', TextareaType::class, [
                 'label' => 'Description courte',
@@ -35,7 +37,9 @@ class ProductType extends AbstractType
                 'attr' => [
                     'placeholder' => 'Tapez le prix du produit en euros'
                 ],
-                'divisor' => 100
+                'divisor' => 100,
+                // 'required' => false,
+                // 'constraints' => new NotBlank((['message' => "Validation du formulaire : le prix du produit ne peut pas être vide"]))
             ])
             ->add('mainPicture', UrlType::class, [
                 'label' => 'Image du produit',
@@ -52,6 +56,39 @@ class ProductType extends AbstractType
                     return strtoupper($category->getName());
                 }
             ]);
+
+        // $builder->get('price')->addModelTransformer(new CentimesTransformers);
+
+        // $builder->addEventListener(FormEvents::POST_SUBMIT, function (FormEvent $event) {
+        //     /** @var Product */
+        //            $product = $event->getData();
+
+        //     if ($product->getPrice() !== null) {
+        //         $product->setPrice($product->getPrice() * 100);
+        //     }
+        // });
+
+        // $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) {
+        //     $form = $event->getForm();
+
+        //     /** @var Product */
+        //           $product = $event->getData();
+
+        //     if ($product->getPrice() !== null) {
+        //         $product->setPrice($product->getPrice() / 100);
+        //     }
+
+        //     if ($product->getId() === null) {
+        //         $form->add('category', EntityType::class, [
+        //             'label' => 'Catégorie',
+        //             'placeholder' => '-- Choisir une catégorie --',
+        //             'class' => Category::class,
+        //             'choice_label' => function (Category $category) {
+        //                 return strtoupper($category->getName());
+        //             }
+        //         ]);
+        //     }
+        // }); 
     }
 
     public function configureOptions(OptionsResolver $resolver): void
