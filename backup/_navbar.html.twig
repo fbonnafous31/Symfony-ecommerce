@@ -6,11 +6,7 @@
 		</button>
 		<div class="collapse navbar-collapse" id="navbarColor03">
 			<ul class="navbar-nav me-auto">
-				{% for c in categoryRepository.findAll %}
-					<li class="nav-item">
-						<a class="nav-link" href="#">{{ c.name }}</a>
-					</li>
-				{% endfor %}
+				{{ render(controller('App\\Controller\\CategoryController::renderMenuList')) }}
 			</ul>
 			<form class="d-flex">
 				<input class="form-control me-sm-2" type="text" placeholder="Search">
