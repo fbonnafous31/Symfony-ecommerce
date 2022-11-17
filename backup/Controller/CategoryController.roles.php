@@ -7,13 +7,12 @@ use App\Form\CategoryType;
 use App\Repository\CategoryRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\String\Slugger\SluggerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Symfony\Component\Security\Core\Security;
 
 class CategoryController extends AbstractController
 {
@@ -61,14 +60,33 @@ class CategoryController extends AbstractController
 
     /**
      * @Route("/admin/category/{id}/edit", name="category_edit")
+     * @IsGranted("ROLE_ADMIN", message="Vous n'avez pas le droit d'accéder à cette ressource.")
      */
     public function edit($id, CategoryRepository $categoryRepository, Request $request, EntityManagerInterface $em)
     {
-        $category = $categoryRepository->find($id);
+        // $user = $security->getUser();
 
-        if (!$category) {
-            throw new NotFoundHttpException("Cette catégorie n'existe pas.");
-        }
+        // $user = $this->getUser();
+
+        // if ($user === null) {
+        //     return $this->redirectToRoute('app_login');
+        // }
+
+        // if (!in_array("ROLE_ADMIN", $user->getRoles())) {
+        //     throw new AccessDeniedHttpException("Vous n'avez pas le droit d'accéder à cette ressource");
+        // }
+
+        // if ($security->isGranted("ROLE_ADMIN") === FALSE) {
+        //     throw new AccessDeniedHttpException("Vous n'avez pas le droit d'accéder à cette ressource");
+        // }
+
+        // if ($this->isGranted("ROLE_ADMIN") === FALSE) {
+        //     throw new AccessDeniedHttpException("Vous n'avez pas le droit d'accéder à cette ressource");
+        // }
+
+        // $this->denyAccessUnlessGranted("ROLE_ADMIN", null, "Vous n'avez pas le droit d'accéder à cette ressource.");
+
+        $category = $categoryRepository->find($id);
 
         $form = $this->createForm(CategoryType::class, $category);
 
