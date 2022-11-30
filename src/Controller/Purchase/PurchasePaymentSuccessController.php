@@ -37,8 +37,7 @@ class PurchasePaymentSuccessController extends AbstractController
 
         $cartService->empty();
 
-        $purchaseEvent = new PurchaseSuccessEvent($purchase);
-        $dispatcher->dispatch($purchaseEvent, 'purchase.success');
+        $dispatcher->dispatch(new PurchaseSuccessEvent($purchase), 'purchase.success');
 
         $this->addFlash('success', "La commande a été payée et confirmée !");
 
